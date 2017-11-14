@@ -6,7 +6,7 @@ using std::cerr;
 using std::cout;
 using std::endl;
 
-#define SERVER_PORT 5000
+#define SERVER_PORT 4000
 #define MSG_BUF_SIZE 1024
 
 Server::Server()
@@ -84,7 +84,8 @@ void Server::WaitForClient()
 			system("pause");
 			exit(1);
 		}
-		::InetNtop(addr_clt.sin_family, &addr_clt, buf_ip, IP_BUF_SIZE);
+		//::InetNtop(addr_clt.sin_family, &addr_clt, buf_ip, IP_BUF_SIZE);
+		::inet_ntop(addr_clt.sin_family, &addr_clt, buf_ip, IP_BUF_SIZE);
 		cout << "A new client connected...IP address: " << buf_ip << ", port number: " << ::ntohs(addr_clt.sin_port) << endl;
 		h_thread = ::CreateThread(nullptr, 0, CreateClientThread, (LPVOID)sock_clt, 0, nullptr);
 		if (h_thread == NULL)
